@@ -30,34 +30,34 @@ import com.kiki.hellocompose.ui.theme.HelloComposeTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PolygonAddMarkerDynamicAngkaScreen(navController: NavController) {
+fun GoogleMapsCreatePolygonDynamicAngka(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Polygon Screen") },
+                title = { Text("Create Polygon Marker Angka") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("google_map_polygon_add_marker_angka_screen") }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Google Maps Polygon Add Marker")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Create Polygon Marker Angka")
                     }
                 }
             )
         }
     ) { paddingValues ->
-        addPolygonMarker(Modifier.padding(paddingValues))
+        Add(Modifier.padding(paddingValues))
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PolygonAddMarkerDynamicAngkaScreenPreview() {
+fun GoogleMapsCreatePolygonDynamicAngkaPreview() {
     HelloComposeTheme {
         val navController = rememberNavController()
-        PolygonAddMarkerDynamicAngkaScreen(navController)
+        GoogleMapsCreatePolygonDynamicAngka(navController)
     }
 }
 
 @Composable
-private fun addPolygonMarker(modifier: Modifier = Modifier) {
+private fun Add(modifier: Modifier = Modifier) {
     // variable untuk menahan titik poligon dan jumlah penanda
     val polygonPoints = remember { mutableStateListOf<LatLng>() }
     val initialPosition = LatLng(-7.318566892922274, 112.7328354352605)
@@ -79,7 +79,7 @@ private fun addPolygonMarker(modifier: Modifier = Modifier) {
         }
     ) {
         // menggambar poligon sejumlah banyaknya titik
-        if (polygonPoints.size >= 4) {
+        if (polygonPoints.size >= 3) {
             Polygon(
                 points = polygonPoints,
                 clickable = true,
@@ -91,7 +91,7 @@ private fun addPolygonMarker(modifier: Modifier = Modifier) {
 
         // di loop untuk membuat penanda
         polygonPoints.forEachIndexed { index, point ->
-            val markerIcon = createMarkerIcon(index + 1)
+            val markerIcon = drawMarkerWithIcon(index + 1)
 
             Marker(
                 state = MarkerState(position = point),
@@ -103,7 +103,7 @@ private fun addPolygonMarker(modifier: Modifier = Modifier) {
 }
 
 // function untuk membuat ikon penanda dengan angka
-fun createMarkerIcon(number: Int): BitmapDescriptor {
+fun drawMarkerWithIcon(number: Int): BitmapDescriptor {
     // membuat bitmap untuk ikon khusus
     val markerSize = 100
     val bitmap = Bitmap.createBitmap(markerSize, markerSize, Bitmap.Config.ARGB_8888)

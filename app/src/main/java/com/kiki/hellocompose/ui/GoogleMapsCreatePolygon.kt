@@ -24,34 +24,34 @@ import com.kiki.hellocompose.ui.theme.HelloComposeTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PolygonAddMarkerDynamicScreen(navController: NavController) {
+fun GoogleMapsCreatePolygon(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Polygon Screen") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("google_map_polygon_add_marker_screen") }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Google Maps Polygon Add Marker")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Create Polygon")
                     }
                 }
             )
         }
     ) { paddingValues ->
-        addPolygonMarker(Modifier.padding(paddingValues))
+        Add(Modifier.padding(paddingValues))
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PolygonAddMarkerDynamicScreenPreview() {
+fun GoogleMapsCreatePolygonPreview() {
     HelloComposeTheme {
         val navController = rememberNavController()
-        PolygonAddMarkerStaticScreen(navController)
+        GoogleMapsCreatePolygon(navController)
     }
 }
 
 @Composable
-private fun addPolygonMarker(modifier: Modifier = Modifier) {
+private fun Add(modifier: Modifier = Modifier) {
     // State to hold polygon points
     val polygonPoints = remember { mutableStateListOf<LatLng>() }
     val initialPosition = LatLng(-7.318566892922274, 112.7328354352605)

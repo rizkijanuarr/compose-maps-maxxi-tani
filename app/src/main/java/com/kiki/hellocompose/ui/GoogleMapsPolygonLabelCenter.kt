@@ -32,44 +32,45 @@ import com.kiki.hellocompose.ui.theme.HelloComposeTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PolygonScreen(navController: NavController) {
+fun GoogleMapsPolygonLabelCenter(navController: NavController) {
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Polygon Screen") },
+                title = { Text("Polygon Label Center")},
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("google_map_polygon_screen") }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Google Maps Polygon")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Polygon Label Center")
                     }
                 }
             )
         }
     ) {
-        addPolygon()
+        Add()
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PolygonScreenPreview() {
+fun GoogleMapsPolygonLabelCenterPreview() {
     HelloComposeTheme {
         val navController = rememberNavController()
-        PolygonScreen(navController)
+        GoogleMapsPolygonLabelCenter(navController)
     }
 }
 
 @Composable
-private fun addPolygon() {
+private fun Add(){
+
     val titikPolygon = listOf(
         LatLng(-7.318566892922274, 112.7328354352605),
         LatLng(-7.307555371879924, 112.7241815246647),
         LatLng(-7.305154639882503, 112.73583063198765)
     )
+    val centerPoint = calculate(titikPolygon)
 
-    val latLng = LatLng(-7.318566892922274, 112.7328354352605)
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(latLng, 13f)
+        position = CameraPosition.fromLatLngZoom(centerPoint, 13f)
     }
 
     var isPolygonSelected by remember { mutableStateOf(false) }
@@ -89,5 +90,21 @@ private fun addPolygon() {
                 isPolygonSelected = true
             }
         )
+        Marker(
+            state = MarkerState(position = centerPoint),
+            title = "Hello!"
+        )
     }
+}
+
+fun calculate(points: List<LatLng>): LatLng {
+    var latSum = 0.0
+    var lngSum = 0.0
+    for (point in points) {
+        latSum += point.latitude
+        lngSum += point.longitude
+    }
+    var centerLat = latSum / points.size
+    var centerLng = lngSum / points.size
+    return LatLng(centerLat, centerLng)
 }

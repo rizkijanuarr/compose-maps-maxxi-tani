@@ -46,11 +46,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.maps.android.compose.CameraPositionState
 
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PolygonAddMarkerDynamicAngkaTambahSimpanScreen(navController: NavController) {
+fun GoogleMapsCreatePolygonDynamicAngkaTambahSimpanReset(navController: NavController) {
 
     var canAddMarker by remember { mutableStateOf(false) }
     val polygonPoints = remember { mutableStateListOf<LatLng>() }
@@ -60,10 +59,10 @@ fun PolygonAddMarkerDynamicAngkaTambahSimpanScreen(navController: NavController)
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Polygon Screen Tambah Simpan") },
+                title = { Text("Create Polygon Marker Angka Tambah Simpan Reset") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("google_map_polygon_add_marker_angka_screen") }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Google Maps Polygon Add Marker")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Create Polygon Marker Angka Tambah Simpan Reset")
                     }
                 }
             )
@@ -142,7 +141,7 @@ fun PolygonAddMarkerDynamicAngkaTambahSimpanScreen(navController: NavController)
         }
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
-            addPolygonMarker(
+            Add(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
@@ -159,7 +158,7 @@ fun PolygonAddMarkerDynamicAngkaTambahSimpanScreen(navController: NavController)
 }
 
 @Composable
-private fun addPolygonMarker(
+private fun Add(
     modifier: Modifier = Modifier,
     polygonPoints: SnapshotStateList<LatLng>,
     cameraPositionState: CameraPositionState,

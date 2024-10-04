@@ -26,21 +26,21 @@ import com.kiki.hellocompose.ui.theme.HelloComposeTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MultipleMarkerMapScreen(navController: NavController) {
+fun GoogleMapsMultipleMarker(navController: NavController) {
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Marker Multiple Map Screen") },
+                title = { Text("Marker Multiple") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("google_map_marker_multiple_screen") }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Google Maps Marker Multiple")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Marker Multiple")
                     }
                 }
             )
         }
     ) {
-        mapWithMarkerMultiple()
+        Add()
     }
 }
 
@@ -49,12 +49,12 @@ fun MultipleMarkerMapScreen(navController: NavController) {
 fun PolygonMapScreenPreview() {
     HelloComposeTheme {
         val navController = rememberNavController()
-        MultipleMarkerMapScreen(navController)
+        GoogleMapsMultipleMarker(navController)
     }
 }
 
 @Composable
-private fun mapWithMarkerMultiple() {
+private fun Add() {
     val golf = LatLng(-7.300998, 112.714854)
     val pasarMalam = LatLng(-7.299594, 112.723824)
     val hayamWuruk = LatLng(-7.301062, 112.725004)

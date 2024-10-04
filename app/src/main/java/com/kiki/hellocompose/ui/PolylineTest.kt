@@ -102,7 +102,7 @@ fun PolylineTest(navController: NavController) {
 fun PolylineTestPreview() {
     HelloComposeTheme {
         val navController = rememberNavController()
-        MapScreen(navController)
+        PolylineTest(navController)
     }
 }
 

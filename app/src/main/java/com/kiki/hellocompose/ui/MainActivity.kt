@@ -1,8 +1,6 @@
 package com.kiki.hellocompose.ui
 
-import BasicMapQuestScreen
-import LocationMapQuestScreen
-import MapZoomQuestScreen
+
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -42,19 +40,18 @@ class MainActivity : ComponentActivity() {
             HelloComposeTheme {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "main") {
+
                     composable("main") { MainScreen(navController) }
-                    composable("basicMapQuest") { BasicMapQuestScreen(navController) }
-                    composable("mapZoomQuest") { MapZoomQuestScreen(navController) }
-                    composable("mapLocationQuest") { LocationMapQuestScreen(navController) }
-                    composable("googleMaps") { MapScreen(navController) }
-                    composable("googleMapsMarker") { MarkerMapScreen(navController) }
-                    composable("googleMapsMarkerMultiple") { MultipleMarkerMapScreen(navController) }
-                    composable("googleMapsPolygon") { PolygonScreen(navController) }
-                    composable("googleMapsPolygonMarker") { PolygonAddMarkerStaticScreen(navController) }
-                    composable("googleMapsPolygonMarkerDynamic") { PolygonAddMarkerDynamicScreen(navController) }
-                    composable("googleMapsPolygonMarkerDynamicAngka") { PolygonAddMarkerDynamicAngkaScreen(navController) }
-                    composable("googleMapsPolygonMarkerDynamicAngkaTambah") { PolygonAddMarkerDynamicAngkaTambahScreen(navController) }
-                    composable("googleMapsPolygonMarkerDynamicAngkaTambahSimpan") { PolygonAddMarkerDynamicAngkaTambahSimpanScreen(navController) }
+                    composable("googleMaps") { GoogleMaps(navController) }
+                    composable("googleMapsMarker") { GoogleMapsMarker(navController) }
+                    composable("googleMapsMarkerMultiple") { GoogleMapsMultipleMarker(navController) }
+                    composable("googleMapsPolygon") { GoogleMapsPolygon(navController) }
+                    composable("googleMapsPolygonLabelCenter") { GoogleMapsPolygonLabelCenter (navController) }
+                    composable("googleMapsCreatePolygon") { GoogleMapsCreatePolygon(navController) }
+                    composable("googleMapsCreatePolygonMarkerAngka") { GoogleMapsCreatePolygonDynamicAngka(navController) }
+                    composable("googleMapsCreatePolygonMarkerAngkaTambah") { GoogleMapsCreatePolygonDynamicAngkaTambah(navController) }
+                    composable("googleMapsPolygonMarkerDynamicAngkaTambahSimpanReset") { GoogleMapsCreatePolygonDynamicAngkaTambahSimpanReset (navController) }
+
                     composable("polylineTest") { PolylineTest(navController) }
                 }
             }
@@ -73,90 +70,87 @@ fun MainScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = {
-                    navController.navigate("basicMapQuest")
-                }
-            ) {
-                Text("BasicMapQuest")
-            }
-            Button(
-                onClick = {
-                    navController.navigate("mapZoomQuest")
-                }
-            ) {
-                Text("MapZoomQuest")
-            }
-            Button(
-                onClick = {
-                    navController.navigate("mapLocationQuest")
-                }
-            ) {
-                Text("MapLocationQuest")
-            }
+            // GOOGLE MAPS
             Button(
                 onClick = {
                     navController.navigate("googleMaps")
                 }
             ) {
-                Text("GoogleMaps")
+                Text("Google Maps")
             }
+
+            // GOOGLE MAPS MARKER
             Button(
                 onClick = {
                     navController.navigate("googleMapsMarker")
                 }
             ) {
-                Text("GoogleMapsMarker")
+                Text("Marker")
             }
+
+            // GOOGLE MAPS MARKER MULTIPLE
             Button(
                 onClick = {
                     navController.navigate("googleMapsMarkerMultiple")
                 }
             ) {
-                Text("GoogleMapsMarkerMultiple")
+                Text("Marker Multiple")
             }
+
+            // GOOGLE MAPS POLYGON
             Button(
                 onClick = {
                     navController.navigate("googleMapsPolygon")
                 }
             ) {
-                Text("GoogleMapsPolygon")
+                Text("Polygon")
             }
+
+            // GOOGLE MAPS POLYGON LABEL CENTER
             Button(
                 onClick = {
-                    navController.navigate("googleMapsPolygonMarker")
+                    navController.navigate("googleMapsPolygonLabelCenter")
                 }
             ) {
-                Text("GoogleMapsPolygonMarker")
+                Text("Polygon Label Center")
             }
+
+            // GOOGLE MAPS CREATE POLYGON
             Button(
                 onClick = {
-                    navController.navigate("googleMapsPolygonMarkerDynamic")
+                    navController.navigate("googleMapsCreatePolygon")
                 }
             ) {
-                Text("googleMapsPolygonMarkerDynamic")
+                Text("Create Polygon")
             }
+
+            // GOOGLE MAPS CREATE POLYGON MARKER DYNAMIC ANGKA
             Button(
                 onClick = {
-                    navController.navigate("googleMapsPolygonMarkerDynamicAngka")
+                    navController.navigate("googleMapsCreatePolygonMarkerAngka")
                 }
             ) {
-                Text("googleMapsPolygonMarkerDynamicAngka")
+                Text("Create Polygon Marker Angka")
             }
+
+            // GOOGLE MAPS CREATE POLYGON MARKER DYNAMIC ANGKA TAMBAH
             Button(
                 onClick = {
-                    navController.navigate("googleMapsPolygonMarkerDynamicAngkaTambah")
+                    navController.navigate("googleMapsCreatePolygonMarkerAngkaTambah")
                 }
             ) {
-                Text("google Maps Angka Tambah")
+                Text("Create Polygon Marker Angka Tambah")
             }
+
+            // GOOGLE MAPS CREATE POLYGON MARKER DYNAMIC ANGKA TAMBAH SIMPAN RESET
             Button(
                 onClick = {
-                    navController.navigate("googleMapsPolygonMarkerDynamicAngkaTambahSimpan")
+                    navController.navigate("googleMapsPolygonMarkerDynamicAngkaTambahSimpanReset")
                 }
             ) {
-                Text("google Maps Angka Tambah Simpan")
+                Text("Create Polygon Marker Angka Tambah Simpan Reset")
             }
+
             Button(
                 onClick = {
                     navController.navigate("polylineTest")
@@ -164,6 +158,7 @@ fun MainScreen(navController: NavController) {
             ) {
                 Text("PolylineTest")
             }
+
             var getAddress by remember { mutableStateOf(false) }
             Button(
                 onClick = {

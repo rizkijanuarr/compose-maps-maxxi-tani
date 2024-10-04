@@ -34,25 +34,23 @@ import com.google.android.gms.maps.model.LatLng
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PolygonAddMarkerDynamicAngkaTambahScreen(navController: NavController) {
-    // State untuk mengontrol penambahan marker
+fun GoogleMapsCreatePolygonDynamicAngkaTambah(navController: NavController) {
+
     var canAddMarker by remember { mutableStateOf(false) }
-    // State untuk menahan titik poligon
     val polygonPoints = remember { mutableStateListOf<LatLng>() }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Polygon Screen Tambah Reset") },
+                title = { Text("Create Polygon Marker Angka Tambah") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("google_map_polygon_add_marker_angka_screen") }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Google Maps Polygon Add Marker")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Create Polygon Marker Angka Tambah")
                     }
                 }
             )
         },
         floatingActionButton = {
-            // Floating Action Button untuk menambah marker
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Bottom,
@@ -60,7 +58,7 @@ fun PolygonAddMarkerDynamicAngkaTambahScreen(navController: NavController) {
             ) {
                 FloatingActionButton(
                     onClick = {
-                        canAddMarker = true // Aktifkan flag untuk menambah titik
+                        canAddMarker = true
                     },
                     modifier = Modifier.padding(16.dp),
                     containerColor = Color.Blue
@@ -72,7 +70,7 @@ fun PolygonAddMarkerDynamicAngkaTambahScreen(navController: NavController) {
                     onClick = {
                         // Reset markers
                         polygonPoints.clear()
-                        canAddMarker = false // Nonaktifkan penambahan marker setelah reset
+                        canAddMarker = false
                     },
                     modifier = Modifier.padding(16.dp),
                     containerColor = Color.Red
@@ -82,25 +80,21 @@ fun PolygonAddMarkerDynamicAngkaTambahScreen(navController: NavController) {
             }
         }
     ) { paddingValues ->
-        // Menambahkan kolom untuk peta
         Column(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
-            // Memanggil fungsi untuk menambahkan penanda dinamis
-            addPolygonMarker(
+            Add(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
                 polygonPoints = polygonPoints,
                 canAddMarker = canAddMarker,
-                onMarkerAdded = {
-                    // Setelah menambah titik, tetap aktif untuk penambahan selanjutnya
-                }
+                onMarkerAdded = {}
             )
         }
     }
 }
 
 @Composable
-private fun addPolygonMarker(
+private fun Add(
     modifier: Modifier = Modifier,
     polygonPoints: SnapshotStateList<LatLng>,
     canAddMarker: Boolean,
@@ -138,7 +132,7 @@ private fun addPolygonMarker(
 
             // Tambahkan penanda untuk setiap titik
             polygonPoints.forEachIndexed { index, point ->
-                val markerIcon = createMarkerIconForTambahScreen(index + 1)
+                val markerIcon = drawMarker(index + 1)
 
                 Marker(
                     state = MarkerState(position = point),
@@ -151,7 +145,7 @@ private fun addPolygonMarker(
 }
 
 // Function untuk membuat ikon penanda dengan angka
-fun createMarkerIconForTambahScreen(number: Int): BitmapDescriptor {
+fun drawMarker(number: Int): BitmapDescriptor {
     // Membuat Bitmap untuk ikon khusus
     val markerSize = 100
     val bitmap = Bitmap.createBitmap(markerSize, markerSize, Bitmap.Config.ARGB_8888)
