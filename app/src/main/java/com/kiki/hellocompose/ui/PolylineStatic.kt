@@ -1,6 +1,8 @@
 package com.kiki.hellocompose.ui
 
 import android.annotation.SuppressLint
+import android.location.LocationRequest
+import android.os.Looper
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,7 +41,7 @@ import com.kiki.hellocompose.ui.theme.HelloComposeTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PolylineTest(navController: NavController) {
+fun PolylineStatic(navController: NavController) {
     val atasehir = LatLng(40.9971, 29.1007)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(atasehir, 15f)
@@ -56,10 +58,10 @@ fun PolylineTest(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Map Screen") },
+                title = { Text("Polyline Static") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("google_map_screen") }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Google Maps")
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Polyline Static")
                     }
                 }
             )
@@ -99,11 +101,12 @@ fun PolylineTest(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun PolylineTestPreview() {
+fun PolylineStaticPreview() {
     HelloComposeTheme {
         val navController = rememberNavController()
-        PolylineTest(navController)
+        PolylineStatic(navController)
     }
 }
+
 
 

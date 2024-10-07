@@ -120,7 +120,7 @@ private fun Add(
             }
         ) {
             // Menggambar poligon jika ada minimal 4 titik
-            if (polygonPoints.size >= 4) {
+            if (polygonPoints.size >= 3) {
                 Polygon(
                     points = polygonPoints,
                     clickable = true,

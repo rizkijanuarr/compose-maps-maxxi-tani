@@ -51,8 +51,8 @@ class MainActivity : ComponentActivity() {
                     composable("googleMapsCreatePolygonMarkerAngka") { GoogleMapsCreatePolygonDynamicAngka(navController) }
                     composable("googleMapsCreatePolygonMarkerAngkaTambah") { GoogleMapsCreatePolygonDynamicAngkaTambah(navController) }
                     composable("googleMapsPolygonMarkerDynamicAngkaTambahSimpanReset") { GoogleMapsCreatePolygonDynamicAngkaTambahSimpanReset (navController) }
-
-                    composable("polylineTest") { PolylineTest(navController) }
+                    composable("polylineStatic") { PolylineStatic(navController) }
+                    
                 }
             }
         }
@@ -76,7 +76,7 @@ fun MainScreen(navController: NavController) {
                     navController.navigate("googleMaps")
                 }
             ) {
-                Text("Google Maps")
+                Text("1 Google Maps")
             }
 
             // GOOGLE MAPS MARKER
@@ -85,7 +85,7 @@ fun MainScreen(navController: NavController) {
                     navController.navigate("googleMapsMarker")
                 }
             ) {
-                Text("Marker")
+                Text("2 Marker")
             }
 
             // GOOGLE MAPS MARKER MULTIPLE
@@ -94,7 +94,7 @@ fun MainScreen(navController: NavController) {
                     navController.navigate("googleMapsMarkerMultiple")
                 }
             ) {
-                Text("Marker Multiple")
+                Text("3 Marker Multiple")
             }
 
             // GOOGLE MAPS POLYGON
@@ -103,7 +103,7 @@ fun MainScreen(navController: NavController) {
                     navController.navigate("googleMapsPolygon")
                 }
             ) {
-                Text("Polygon")
+                Text("4 Polygon")
             }
 
             // GOOGLE MAPS POLYGON LABEL CENTER
@@ -112,7 +112,7 @@ fun MainScreen(navController: NavController) {
                     navController.navigate("googleMapsPolygonLabelCenter")
                 }
             ) {
-                Text("Polygon Label Center")
+                Text("5 Polygon Label Center")
             }
 
             // GOOGLE MAPS CREATE POLYGON
@@ -121,7 +121,7 @@ fun MainScreen(navController: NavController) {
                     navController.navigate("googleMapsCreatePolygon")
                 }
             ) {
-                Text("Create Polygon")
+                Text("6 Create Polygon")
             }
 
             // GOOGLE MAPS CREATE POLYGON MARKER DYNAMIC ANGKA
@@ -130,7 +130,7 @@ fun MainScreen(navController: NavController) {
                     navController.navigate("googleMapsCreatePolygonMarkerAngka")
                 }
             ) {
-                Text("Create Polygon Marker Angka")
+                Text("7 Create Polygon Marker Angka")
             }
 
             // GOOGLE MAPS CREATE POLYGON MARKER DYNAMIC ANGKA TAMBAH
@@ -139,7 +139,7 @@ fun MainScreen(navController: NavController) {
                     navController.navigate("googleMapsCreatePolygonMarkerAngkaTambah")
                 }
             ) {
-                Text("Create Polygon Marker Angka Tambah")
+                Text("8 Create Polygon Marker Angka Tambah")
             }
 
             // GOOGLE MAPS CREATE POLYGON MARKER DYNAMIC ANGKA TAMBAH SIMPAN RESET
@@ -148,15 +148,16 @@ fun MainScreen(navController: NavController) {
                     navController.navigate("googleMapsPolygonMarkerDynamicAngkaTambahSimpanReset")
                 }
             ) {
-                Text("Create Polygon Marker Angka Tambah Simpan Reset")
+                Text("9 Create Polygon Marker Angka Tambah Simpan Reset")
             }
 
+            // GOOGLE MAPS POLYLINE STATIC
             Button(
                 onClick = {
-                    navController.navigate("polylineTest")
+                    navController.navigate("polylineStatic")
                 }
             ) {
-                Text("PolylineTest")
+                Text("Polyline Static")
             }
 
             var getAddress by remember { mutableStateOf(false) }

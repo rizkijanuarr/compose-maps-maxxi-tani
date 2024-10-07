@@ -55,14 +55,15 @@ fun GoogleMapsCreatePolygonDynamicAngkaTambahSimpanReset(navController: NavContr
     val polygonPoints = remember { mutableStateListOf<LatLng>() }
     val cameraPositionState = rememberCameraPositionState()
     val context = LocalContext.current
+    var initialPosition = LatLng(-7.318566892922274, 112.7328354352605)
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Create Polygon Marker Angka Tambah Simpan Reset") },
+                title = { Text("Polygon Screen Tambah Simpan") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Create Polygon Marker Angka Tambah Simpan Reset")
+                    IconButton(onClick = { navController.navigate("google_map_polygon_add_marker_angka_screen") }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Google Maps Polygon Add Marker")
                     }
                 }
             )
@@ -141,15 +142,13 @@ fun GoogleMapsCreatePolygonDynamicAngkaTambahSimpanReset(navController: NavContr
         }
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
-            Add(
+            addPolygonMarker(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
                 polygonPoints = polygonPoints,
                 cameraPositionState = cameraPositionState,
                 onDistanceUpdate = { distance ->
-                    // Lakukan sesuatu dengan distance jika diperlukan
-                    // Misalnya, update nilai distanceText di state
                     var distanceText = String.format("%.2f m", distance)
                 }
             )
@@ -158,16 +157,12 @@ fun GoogleMapsCreatePolygonDynamicAngkaTambahSimpanReset(navController: NavContr
 }
 
 @Composable
-private fun Add(
+private fun addPolygonMarker(
     modifier: Modifier = Modifier,
     polygonPoints: SnapshotStateList<LatLng>,
     cameraPositionState: CameraPositionState,
     onDistanceUpdate: (Double) -> Unit
 ) {
-    val initialPosition = LatLng(-7.318566892922274, 112.7328354352605)
-    cameraPositionState.position = CameraPosition.fromLatLngZoom(initialPosition, 13f)
-
-    // Deklarasi untuk distanceText
     var distanceText: String by remember { mutableStateOf("0.0 m") }
 
     Box(modifier = modifier.fillMaxSize()) {
@@ -185,7 +180,7 @@ private fun Add(
                 )
             }
 
-            if (polygonPoints.size >= 4) {
+            if (polygonPoints.size >= 3) {
                 Polygon(
                     points = polygonPoints,
                     clickable = true,
@@ -196,10 +191,9 @@ private fun Add(
             }
 
             if (polygonPoints.size >= 2) {
-                // Hitung jarak antara titik terakhir dan sebelum terakhir
                 val distance = calculateDistance(polygonPoints[polygonPoints.size - 2], polygonPoints.last())
                 onDistanceUpdate(distance)
-                distanceText = "Jarak: ${distance.toInt()} m" // Update distanceText
+                distanceText = "Jarak: ${distance.toInt()} m"
             }
         }
 
@@ -280,5 +274,5 @@ private fun calculateDistance(start: LatLng, end: LatLng): Double {
             Math.sin(Δλ / 2) * Math.sin(Δλ / 2)
     val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
-    return R * c // distance in meters
+    return R * c
 }
